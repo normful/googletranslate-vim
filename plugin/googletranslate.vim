@@ -18,7 +18,7 @@ if !exists('g:googletranslate_locale')
   let g:googletranslate_locale = substitute(v:lang, '^\([a-z]*\).*$', '\1', '')
 endif
 
-let s:endpoint = 'http://ajax.googleapis.com/ajax/services/language/translate'
+let s:endpoint = 'https://www.googleapis.com/language/translate/v2'
 
 function! s:CheckLang(word)
   let all = strlen(a:word)
@@ -66,21 +66,20 @@ function! s:quote(s)
 endfunction
 
 function! GoogleTranslate(word, from, to)
-  let mode = a:from . "|" . a:to
-  if exists("g:googletranslate_userip") == 0
+  if exists("g:googletranslate_apikey") == 0
     redraw
     echohl ErrorMsg
     echomsg "Google Translate changed term to use APIs."
     echomsg "If you want to use this plugin continued,"
-    echomsg "Please set your internet IP address to `g:googletranslate_userip`."
-    echomsg "see also http://code.google.com/intl/ja/apis/language/translate/v1/using_rest_translate.html#json_args"
+    echomsg "Please set your API key to `g:googletranslate_apikey`."
     echohl None
     return ''
   endif
-  let res = http#get(s:endpoint, {"v": "1.0", "langpair": mode, "q": a:word, "userip": g:googletranslate_userip})
-  let obj = json#decode(res.content)
-  if type(obj.responseData) == 4
-    let text = obj.responseData.translatedText
+  let opt = {"q": a:word, "source": a:from, "target": a:to, "key": g:googletranslate_apikey}
+  let res = webapi#http#get(s:endpoint, opt)
+  let obj = webapi#json#decode(res.content)
+  if type(obj.data) == 4
+    let text = obj.data.translations[0].translatedText
     let text = substitute(text, '&gt;', '>', 'g')
     let text = substitute(text, '&lt;', '<', 'g')
     let text = substitute(text, '&quot;', '"', 'g')
@@ -123,7 +122,7 @@ function! GoogleTranslateRange(...) range
   let from = ''
   let to = g:googletranslate_locale
   if a:0 == 0
-    let from = s:CheckLang(strline)
+    let from = s:CheckLang(strline) == 'en' ? 'en' : g:googletranslate_locale
     let to = 'en'==from ? g:googletranslate_locale : 'en'
   elseif a:0 == 1
     let to = a:1
