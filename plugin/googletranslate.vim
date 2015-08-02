@@ -8,6 +8,7 @@
 " Contribute:	MURAOKA Taro <koron.kaoriya@gmail.com>
 " Based On:     excitetranslate.vim
 " Last Change:	29-Nov-2011.
+" Dependencies: mattn/webapi-vim
 
 if !exists('g:googletranslate_options')
   let g:googletranslate_options = ["register","buffer"]
