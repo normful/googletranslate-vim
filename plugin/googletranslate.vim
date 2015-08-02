@@ -2,6 +2,7 @@
 "
 " googletranslate.vim - Translate between English and Locale Language using Google
 " @see [https://cloud.google.com/translate/v2/getting_started]
+" @see [https://cloud.google.com/translate/v2/using_rest]
 "
 " Author:	Yasuhiro Matsumoto <mattn.jp@gmail.com>
 " Contribute:	hotoo (闲耘™)
