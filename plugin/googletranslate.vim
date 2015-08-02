@@ -79,7 +79,7 @@ function! GoogleTranslate(word, from, to)
   let opt = {"q": a:word, "source": a:from, "target": a:to, "key": g:googletranslate_apikey}
   let res = webapi#http#get(s:endpoint, opt)
   let obj = webapi#json#decode(res.content)
-  if type(obj.data) == 4
+  if exists("obj.data") && type(obj.data) == 4
     let text = obj.data.translations[0].translatedText
     let text = substitute(text, '&gt;', '>', 'g')
     let text = substitute(text, '&lt;', '<', 'g')
