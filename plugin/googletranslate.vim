@@ -1,8 +1,7 @@
 " vim:set ts=8 sts=2 sw=2 tw=0:
 "
-" googletranslate.vim - Translate between English and Locale Language
-" using Google
-" @see [http://code.google.com/apis/ajaxlanguage/ Google AJAX Language API]
+" googletranslate.vim - Translate between English and Locale Language using Google
+" @see [https://cloud.google.com/translate/v2/getting_started]
 "
 " Author:	Yasuhiro Matsumoto <mattn.jp@gmail.com>
 " Contribute:	hotoo (闲耘™)
