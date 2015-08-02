@@ -90,11 +90,11 @@ function! GoogleTranslate(word, from, to)
     let text = substitute(text, '&#\(\d\+\);', '\=s:nr2enc_char(submatch(1))', 'g')
     let text = substitute(text, '&amp;', '\&', 'g')
   else
-    if !has_key(obj, 'responseDetails')
-      let obj.responseDetails = 'unknown server error'
-    endif
+    echomsg "Original request:"
+    echo opt
+    echomsg "Error response:"
+    echo obj
     echohl WarningMsg
-    echo obj.responseDetails
     echohl None
     let text = ''
   endif
